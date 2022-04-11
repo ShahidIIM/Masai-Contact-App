@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favourites</title>
+
+    <link rel="stylesheet" href="index.css"/>
+</head>
+
+<div id="navigation">
+    <div><a href="index.html">Home</a></div>
+    <div><a href="contact.html">Contact List</a></div>
+    <div><a href="favourites.html">Favourites</a></div>
+    
+</div>
+<body>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Mobile Number
+                    </th>
+                    <th>
+                        Type
+                    </th>
+                    
+                    
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                
+            </tbody>
+        </table>
+    </div>
+</body>
+
+<script>
+    
+    var Favourites = JSON.parse(localStorage.getItem('Favourites')) || [];
+
+function displayData(Favourites) {
+    document.querySelector('tbody').innerHTML = '';
+    Favourites.forEach(contact => {
+        var row = document.createElement('tr');
+
+        var td1 = document.createElement('td');
+        td1.innerText = contact.name;
+
+        var td2 = document.createElement('td');
+        td2.innerText = contact.number;
+
+        var td3 = document.createElement('td');
+        td3.innerText = contact.role;
+
+        
+
+       
+        row.append(td1, td2, td3);
+        document.querySelector('#tableBody').append(row);
+    });
+}
+
+window.addEventListener('load', function() {
+    displayData(Favourites);
+});
+
+
+</script>
+</html>

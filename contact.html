@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+
+    <link rel="stylesheet" href="index.css"/>
+</head>
+<body>
+    <div id="navigation">
+        <div><a href="index.html">Home</a></div>
+        <div><a href="contact.html">Contact List</a></div>
+        <div><a href="favourites.html">Favourites</a></div>
+        
+    </div>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Mobile Number
+                    </th>
+                    <th>
+                        Type
+                    </th>
+                    <th>
+                        Favourites
+                    </th>
+                    
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                
+            </tbody>
+        </table>
+    </div>
+</body>
+<script>
+    var savedContact = JSON.parse(localStorage.getItem('contactList')) || [];
+
+var Favourites = JSON.parse(localStorage.getItem('Favourites')) || [];
+
+function displayData(savedContact) {
+    document.querySelector('tbody').innerHTML = '';
+    savedContact.forEach(contact => {
+        var row = document.createElement('tr');
+
+        var td1 = document.createElement('td');
+        td1.innerText = contact.name;
+
+        var td2 = document.createElement('td');
+        td2.innerText = contact.number;
+
+        var td3 = document.createElement('td');
+        td3.innerText = contact.role;
+
+        
+
+        var td4 = document.createElement('td');
+        td4.innerText = 'Add to favourites';
+        td4.style.color = 'red';
+        td4.style.cursor = 'pointer';
+
+        td4.addEventListener('click', function() {
+            Favourites.push(contact);
+            localStorage.setItem('Favourites', JSON.stringify(Favourites));
+            alert(`Favourites added succesfully ${contact.name}`);
+        });
+        row.append(td1, td2, td3, td4);
+        document.querySelector('#tableBody').append(row);
+    });
+}
+
+window.addEventListener('load', function() {
+    displayData(savedContact);
+});
+
+localStorage.clear()
+</script>
+</html>
